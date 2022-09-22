@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../../widgets/ourContainer.dart';
 
-class OurSignUpForm extends StatelessWidget {
+class OurSignUpForm extends StatefulWidget {
+  const OurSignUpForm({Key? key}) : super(key: key);
+
+  @override
+  _OurSignUpFormState createState() => _OurSignUpFormState();
+}
+
+class _OurSignUpFormState extends State<OurSignUpForm> {
+  TextEditingController _fullNameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return OurContainer(
@@ -19,6 +31,7 @@ class OurSignUpForm extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: _fullNameController,
             decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.person_outline), hintText: "Full Name"),
           ),
@@ -26,13 +39,15 @@ class OurSignUpForm extends StatelessWidget {
             height: 20.0,
           ),
           TextFormField(
+            controller: _emailController,
             decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
+                prefixIcon: Icon(Icons.lock_outline), hintText: "Email"),
           ),
           const SizedBox(
             height: 20.0,
           ),
           TextFormField(
+            controller: _passwordController,
             decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
             obscureText: true,
@@ -41,6 +56,7 @@ class OurSignUpForm extends StatelessWidget {
             height: 20.0,
           ),
           TextFormField(
+            controller: _confirmPasswordController,
             decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.lock_open),
                 hintText: "Confirm Password"),
@@ -51,7 +67,12 @@ class OurSignUpForm extends StatelessWidget {
           ),
           RaisedButton(
               //replace with ElevatedButton, but the themes do not apply
-              onPressed: () {},
+              onPressed: () {
+                if (_passwordController.text ==
+                    _confirmPasswordController.text) {
+                  _signUpUser(_emailController, _passwordController, context);
+                }
+              },
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 100),
                 child: Text(
@@ -66,4 +87,5 @@ class OurSignUpForm extends StatelessWidget {
       ),
     );
   }
+  void 
 }
